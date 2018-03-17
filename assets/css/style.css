@@ -5,37 +5,88 @@ html{
 }
 h1{
     font-family: 'Fredericka the Great', cursive;
-    font-size: 75px;
+    font-size: 65px;
     display: inline-block;
+    padding-top:5px;
+    padding-bottom:5px;
     margin:0;
 }
 
-div{
+#question,
+.answers{
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
+    font-size: 20px;
+    font-weight: bold;
 }
-header{
-    max-width: 800px;  
+header,
+main{
+    max-width: 600px;  
     margin-left:auto;
     margin-right:auto;   
     margin-bottom: 30px;
 }
 #header-wrap{
     margin-top:20px;
-    background-color: #D8D6D6;
+    margin-bottom:30px;
+    background-color: rgb(166, 180, 194);
     padding-left: 15px;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .head-div{
-    width: 150px;
-    height: 150px;
+    width: 20px;
+    height: 85px;
     float:right;
-    margin-right:30px;
+    margin-top: -5px;
+    margin-right:20px;
     border-radius:5px;
     background-color: #C8D9EB;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
 }
-#inst-img{
-    width:100%;
+.head-div#div2{
+    width:5px;
+    margin-right: 5px;
+    background-color: #D8D6D6;
 }
+main{
+    background-color: #D8D6D6;
+    border-radius:5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+}
+#question{
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 4px;
+}
+hr{
+    margin-left:15px;
+    margin-right:15px;
+}
+#answer{
+    margin-top: 30px;
+    padding-bottom:20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 110px;
+}
+.answers{
+    background-color: #C8D9EB;
+    width: 45%;
+    padding: 8px;
+    border-radius:5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+    float:left;
+    margin-bottom: 15px;
+}
+#a2,
+#a4{
+    float:right;
+}
+.answers:hover{
+    background-color: white;
+}
+
+
+/*Media Queries*/
+    /*media query at 610px width*/

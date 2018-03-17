@@ -16,12 +16,14 @@
     const correctAnswers = ['honeycrisp', 'tunnels','Sherlock Holmes','13','33rd','Walter Mondale','Football Team'];
 
     // Initial Window View
+    const displayQA = function(){
         $('#question').text(currentQA[0]);
         $('#a1').text(currentQA[1]);
         $('#a2').text(currentQA[2]);
         $('#a3').text(currentQA[3]);
         $('#a4').text(currentQA[4]);
-
+    }
+    displayQA();
 //Functions
     $('.answers').click(function(){
         selectedAnswer = $(this).text();
