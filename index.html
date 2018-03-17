@@ -4,16 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trivia</title>
+    <title>Trivia Game</title>
 
     <!-- Favicon -->
-    <!-- <link rel="shortcut icon" type="image/png" href="./assets/images/favicon.png"/> -->
+        <!-- <link rel="shortcut icon" type="image/png" href="./assets/images/favicon.png"/> -->
 
     <!-- Added link to the jQuery Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Styles -->
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Roboto:100" rel="stylesheet">
+
 
 </head>
 <body>
-    
+        <header>
+                <div id="header-wrap">
+                  <h1>Trivia Game</h1>
+                    <div class="head-div">
+                    <img class="openEnvelope"id = "inst-img"src="./assets/images/openEnvelope.png" alt="openEnvelope">
+                    </div>
+                </div>
+
+              </header>
+            
+    <div id = "question"></div>
+    <div id = "answer">
+        <div id="a1" class="answers"></div>
+        <div id="a2" class="answers"></div>
+        <div id="a3" class="answers"></div>
+        <div id="a4" class="answers"></div>
+    </div>
+
+    <script src="./assets/javascript/app.js"></script>
+
 </body>
 </html>
