@@ -7,15 +7,24 @@
     const qa4 = ['How many buildings make up the "Old Campus Historic District"?','7','21','13','17','13'];
     const qa5 = ['In the world, where does the U rank academically?','65th','52nd','47th','33rd','33rd'];
     const qa6 = ['Which U.S. vice president did not graduated from the U?', 'Walter Mondale','Henry A. Wallace','Herbert Humphrey','All of them did','Walter Mondale'];
+    const qa8 = ['','','','','',''];
+    const qa9 = ['','','','','',''];
+    const qa10 = ['','','','','',''];
+    const qa11 = ['','','','','',''];
+    const qa12 = ['','','','','',''];
+    const qa13 = ['','','','','',''];
 
-    let qaBank = [qa1, qa2, qa3, qa4, qa5, qa6];
+
+
+
+    let qaBank = [qa1, qa2, qa3, qa4, qa5, qa6, qa8, qa9, qa10, qa11, qa12, qa13,];
     let currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
     const runningQABank = function remove(qaBank, currentQA){
         const index = qaBank.indexOf(currentQA);
+        console.log('index',index);
         if (index !== -1){
             qaBank.splice(index,1);
         }
-        return qaBank;
     }
 
     let winCount = 0;
@@ -28,6 +37,9 @@
     let correctGameOver = "<br><p>Woot woot! That's another correct answer!</p><p>Your final score is:</p><p>Wins:  "+winCount+"        Losses:  "+lossCount+"</p>";
     let incorrectGameOver = "<br><p>Oh darn! The correct answer was "+ currentQA[5] +"</p><p>Your final score is:</p><p>Wins:  "+winCount+"        Losses:  "+lossCount+"</p>";
     let noTimeGameOver = "<br><p>Oh darn! You ran out of time, but the correct answer was "+ currentQA[5] +"</p><p>Your final score is:</p><p>Wins:  "+winCount+"        Losses:  "+lossCount+"</p>";
+
+    var timer2;
+
 
 // Initial State/View
     $('#instructions').append(instructions);
@@ -43,6 +55,7 @@
 //Functions
     //Q function call to start
     const qFunction = function(){
+        clearTimeout(timer2);
         //Timer for questions
             let timer = setTimeout(function(){
                 //Questions Remaining -- when i click and clear timer does the function get performed?
@@ -52,6 +65,7 @@
                         $('.pop').css("visibility","visible");
                         lossCount++;
                         nextQSetup();
+                        nextQTimer();
                     }
                 //Game Over
                     else if (qaBank.length===0) {
@@ -71,18 +85,20 @@
                         $('#instructions').empty();
                         $('#instructions').append(correct);
                         $('.pop').css("visibility","visible");
-                        window.clearTimeout(timer);
+                        clearTimeout(timer);
                         winCount++;
                         nextQSetup();
+                        nextQTimer();
                     }
                 //Incorrect Answer
                     else if (selectedAnswer!==currentQA[5] && qaBank.length>0){
                         $('#instructions').empty();
                         $('#instructions').append(incorrect);
                         $('.pop').css("visibility","visible");
-                        window.clearTimeout(timer);
+                        clearTimeout(timer);
                         lossCount++;
                         nextQSetup();
+                        nextQTimer();
                     }
             //Game Over
                 //Correct Answer
@@ -90,7 +106,7 @@
                         $('#instructions').empty();
                         $('#instructions').append(correctGameOver);
                         $('.pop').css("visibility","visible");
-                        window.clearTimeout(timer);
+                        clearTimeout(timer);
                         winCount++;
                         console.log('W ', winCount, 'L  ', lossCount)
                     }
@@ -99,7 +115,7 @@
                         $('#instructions').empty();
                         $('#instructions').append(incorrectGameOver);
                         $('.pop').css("visibility","visible");
-                        window.clearTimeout(timer);
+                        clearTimeout(timer);
                         lossCount++;
                         console.log('W ', winCount, 'L  ', lossCount)
                     }
@@ -109,24 +125,25 @@
 
     //Setup next Q
         const nextQSetup = function(){
-            currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
             runningQABank(qaBank,currentQA);
+            currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
             $('#question').text(currentQA[0]);
             $('#a1').text(currentQA[1]);
             $('#a2').text(currentQA[2]);
             $('#a3').text(currentQA[3]);
             $('#a4').text(currentQA[4]);
             console.log('W ', winCount, 'L  ', lossCount)
-            console.log(runningQABank(qaBank, currentQA));
-            console.log(currentQA[0]);
-            //Timer between questions
-            const timer2 = setTimeout(function(){
-                $('.pop').css("visibility","hidden");
-                qFunction();
-            }, 5000)            
+            console.log(qaBank);
+            console.log(currentQA[0]);      
         }
 
-
+    //Timer2
+        const nextQTimer = function(){
+            timer2 = setTimeout(function(){
+                $('.pop').css("visibility","hidden");
+                //qFunction();
+            }, 5000)   
+        }
 // start on click
 $('#start').click(function(){
     $('.pop').css("visibility","hidden");
