@@ -7,17 +7,9 @@
     const qa4 = ['How many buildings make up the "Old Campus Historic District"?','7','21','13','17','13'];
     const qa5 = ['In the world, where does the U rank academically?','65th','52nd','47th','33rd','33rd'];
     const qa6 = ['Which U.S. vice president did not graduated from the U?', 'Walter Mondale','Henry A. Wallace','Herbert Humphrey','All of them did','Walter Mondale'];
-    const qa8 = ['','','','','',''];
-    const qa9 = ['','','','','',''];
-    const qa10 = ['','','','','',''];
-    const qa11 = ['','','','','',''];
-    const qa12 = ['','','','','',''];
-    const qa13 = ['','','','','',''];
 
 
-
-
-    let qaBank = [qa1, qa2, qa3, qa4, qa5, qa6, qa8, qa9, qa10, qa11, qa12, qa13,];
+    let qaBank = [qa1, qa2, qa3, qa4, qa5, qa6];
     let currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
     const runningQABank = function remove(qaBank, currentQA){
         const index = qaBank.indexOf(currentQA);
