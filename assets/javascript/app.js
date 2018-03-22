@@ -13,7 +13,6 @@
     let currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
     const runningQABank = function remove(qaBank, currentQA){
         const index = qaBank.indexOf(currentQA);
-        console.log('index',index);
         if (index !== -1){
             qaBank.splice(index,1);
         }
@@ -26,10 +25,11 @@
     let incorrect = "<br><p>Oh darn! That wasn't the correct answer.</p><p>Correct Answer :  "+ currentQA[5] +"</p><p>Better luck on the next question.</p>";
     let correct = "<br><p>Hurray!</p><p>You selected the correct answer!</p><p>Let's see how you do on the next one.</p>";
     let noTime = "<br><p>Oh darn! Looks like you ran out of time.</p><p>Correct Answer :  "+ currentQA[5] +"</p><p>Better luck on the next question.</p>";
-    let correctGameOver = '<br><p>Woot woot! Another correct answer!</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="start">&#9886; Restart Game &#9887;</div>';
-    let incorrectGameOver = '<br><p>Oh darn! The correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="start">&#9886; Restart Game &#9887;</div>';
-    let noTimeGameOver = '<br><p>Oh darn! You ran out of time, but the correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="start">&#9886; Restart Game &#9887;</div>';
+    let correctGameOver = '<br><p>Woot woot! Another correct answer!</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="restart">&#9886; Restart Game &#9887;</div>';
+    let incorrectGameOver = '<br><p>Oh darn! The correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="restart">&#9886; Restart Game &#9887;</div>';
+    let noTimeGameOver = '<br><p>Oh darn! You ran out of time, but the correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="restart">&#9886; Restart Game &#9887;</div>';
 
+    var timer;
     var timer2;
 
     const popupWords = function(){
@@ -37,9 +37,9 @@
         incorrect = "<br><p>Oh darn! That wasn't the correct answer.</p><p>Correct Answer :  "+ currentQA[5] +"</p><p>Better luck on the next question.</p>";
         correct = "<br><p>Hurray!</p><p>You selected the correct answer!</p><p>Let's see how you do on the next one.</p>";
         noTime = "<br><p>Oh darn! Looks like you ran out of time.</p><p>Correct Answer :  "+ currentQA[5] +"</p><p>Better luck on the next question.</p>";
-        correctGameOver = '<br><p>Woot woot! Another correct answer!</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="start">&#9886; Restart Game &#9887;</div>';
-        incorrectGameOver = '<br><p>Oh darn! The correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="start">&#9886; Restart Game &#9887;</div>';
-        noTimeGameOver = '<br><p>Oh darn! You ran out of time, but the correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="start">&#9886; Restart Game &#9887;</div>';
+        correctGameOver = '<br><p>Woot woot! Another correct answer!</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="restart">&#9886; Restart Game &#9887;</div>';
+        incorrectGameOver = '<br><p>Oh darn! The correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="restart">&#9886; Restart Game &#9887;</div>';
+        noTimeGameOver = '<br><p>Oh darn! You ran out of time, but the correct answer was '+ currentQA[5] +'</p><p>Your final score is:'+winCount+'  Wins & '+lossCount+'  Losses</p><div class = "pop" id="restart">&#9886; Restart Game &#9887;</div>';
         }
 
 // Initial State/View
@@ -50,35 +50,13 @@
     $('#a3').text(currentQA[3]);
     $('#a4').text(currentQA[4]);
     console.log('W ', winCount, 'L  ', lossCount)
-    console.log(runningQABank(qaBank, currentQA));
     console.log(currentQA[0]);
 
 //Functions
     //Q function call to start
     const qFunction = function(){
         //Timer for questions
-            let timer = setTimeout(function(){
-                //Questions Remaining -- when i click and clear timer does the function get performed?
-                    if (qaBank.length > 1){
-                        $('#instructions').empty();
-                        popupWords();
-                        $('#instructions').append(noTime);
-                        $('.pop').css("visibility","visible");
-                        lossCount++;
-                        nextQSetup();
-                        nextQTimer();
-                    }
-                //Game Over
-                    else if (qaBank.length===1) {
-                        $('#instructions').empty();
-                        popupWords();
-                        $('#instructions').append(noTimeGameOver);
-                        $('.pop').css("visibility","visible");
-                        lossCount++;
-                        $('#winLoss').text(`Wins:  ${winCount}   Losses:  ${lossCount}`);
-                        console.log('W ', winCount, 'L  ', lossCount)    
-                    }
-            }, 10000);
+        qaTimer();
         //Click
         $('.answers').click(function(){
             let selectedAnswer = $(this).text();
@@ -109,6 +87,7 @@
                 //Correct Answer
                     else if (selectedAnswer===currentQA[5] && qaBank.length===1){
                         $('#instructions').empty();
+                        $('#question').empty;
                         popupWords();
                         $('#instructions').append(correctGameOver);
                         $('.pop').css("visibility","visible");
@@ -116,17 +95,20 @@
                         winCount++;
                         $('#winLoss').text(`Wins:  ${winCount}   Losses:  ${lossCount}`);
                         console.log('W ', winCount, 'L  ', lossCount)
+                        restart();
                     }
                 //Incorrect Answer
                     else if (selectedAnswer!==currentQA[5] && qaBank.length===1){
                         $('#instructions').empty();
+                        $('#question').empty;
                         popupWords();
                         $('#instructions').append(incorrectGameOver);
                         $('.pop').css("visibility","visible");
                         clearTimeout(timer);
                         lossCount++;
                         $('#winLoss').text(`Wins:  ${winCount}   Losses:  ${lossCount}`);
-                        console.log('W ', winCount, 'L  ', lossCount)
+                        console.log('W ', winCount, 'L  ', lossCount);
+                        restart();
                     }
         });
     }
@@ -136,28 +118,75 @@
         const nextQSetup = function(){
             runningQABank(qaBank,currentQA);
             currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
+            console.log('W ', winCount, 'L  ', lossCount)
             console.log(currentQA[0]);
             $('#question').text(currentQA[0]);
             $('#a1').text(currentQA[1]);
             $('#a2').text(currentQA[2]);
             $('#a3').text(currentQA[3]);
             $('#a4').text(currentQA[4]);
-            console.log('W ', winCount, 'L  ', lossCount)
         }
-
+    //Timer1
+    const qaTimer = function(){
+        timer = setTimeout(function(){
+           // Questions Remaining
+                if (qaBank.length > 1){
+                    $('#instructions').empty();
+                    popupWords();
+                    $('#instructions').append(noTime);
+                    $('.pop').css("visibility","visible");
+                    lossCount++;
+                    nextQSetup();
+                    nextQTimer();
+                }
+            //Game Over
+                else if (qaBank.length===1) {
+                    $('#instructions').empty();
+                    $('#question').empty;
+                    popupWords();
+                    $('#instructions').append(noTimeGameOver);
+                    $('.pop').css("visibility","visible");
+                    lossCount++;
+                    console.log('W ', winCount, 'L  ', lossCount);
+                    restart();    
+                }            
+        },5000);
+        console.log('hit');  
+    }
     //Timer2
         const nextQTimer = function(){
             timer2 = setTimeout(function(){
                 $('.pop').css("visibility","hidden");
+                qaTimer();
             }, 5000)   
         }
 
     //Resart Game?
-        
+    const restart = function(){
+        $('#restart').click(function(){
+            qaBank = [qa1, qa2, qa3, qa4, qa5, qa6];
+            currentQA = qaBank[Math.floor(Math.random() * qaBank.length)];
+            winCount = 0;
+            lossCount = 0;
+            $('#instructions').empty();
+            $('#instructions').append(instructions);
+            $('#question').text(currentQA[0]);
+            $('#a1').text(currentQA[1]);
+            $('#a2').text(currentQA[2]);
+            $('#a3').text(currentQA[3]);
+            $('#a4').text(currentQA[4]);
+            console.log('W ', winCount, 'L  ', lossCount)
+            console.log(currentQA[0]);
+            $('#start').click(function(){
+                $('.pop').css("visibility","hidden");
+                qFunction();
+            });
+        })        
+    }
 // start on click
 $('#start').click(function(){
     $('.pop').css("visibility","hidden");
     qFunction();
 })
 
-        
+  
